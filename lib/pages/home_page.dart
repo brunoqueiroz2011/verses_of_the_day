@@ -19,7 +19,15 @@ class _HomePageState extends State<HomePage> {
     "Depois passam como o vento e prosseguem; homens carregados de culpa, e que têm por deus a sua própria força\". (Hc 1:11)",
     "A graça, a misericórdia e a paz da parte de Deus Pai e de Jesus Cristo, seu Filho, estarão conosco em verdade e em amor. (2Jo 1:3)",
   ];
-  var _verse = "Clique Abaixo para gerar um versiculo!";
+  var _randomVerse = "Clique Abaixo para gerar um versiculo!";
+
+  void generateVerse() {
+    var numberRandom = Random().nextInt(_verses.length);
+
+    setState(() {
+      _randomVerse = _verses[numberRandom].toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Image.asset('assets/images/logo.png'),
             Text(
-              _verse,
+              _randomVerse,
               style: const TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w200,
@@ -40,12 +48,7 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  var intValue = Random().nextInt(5);
-                  _verse = _verses[intValue].toString();
-                });
-              },
+              onPressed: generateVerse,
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                 minimumSize: MaterialStateProperty.all(const Size(200, 50)),
