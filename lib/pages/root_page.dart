@@ -9,6 +9,7 @@ class RootPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Versiculos do Dia"),
+        backgroundColor: Colors.green,
       ),
       body: const HomePage(),
     );
