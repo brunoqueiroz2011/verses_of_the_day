@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:verses_of_the_day/pages/home_page.dart';
 import 'package:verses_of_the_day/pages/root_page.dart';
 
 void main() {

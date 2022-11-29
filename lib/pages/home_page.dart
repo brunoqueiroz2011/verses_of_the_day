@@ -1,6 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:verses_of_the_day/models/verses.dart';
+import 'package:verses_of_the_day/utility/web_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage() : super();
@@ -10,22 +10,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _verses = [
-    "Escutem-me, vocês de coração obstinado, vocês que estão longe da retidão. (Is 46:12)",
-    "Pois ele só pensa nos gastos. Ele lhe diz: \"Coma e beba! \", mas não fala com sinceridade. (Pv 23:7)",
-    "Filho de Amarias, filho de Azarias, filho de Meraiote, (Ed 7:3)",
-    "O Senhor tinha dito a Moisés: \"O faraó não lhes dará ouvidos, a fim de que os meus prodígios se multipliquem no Egito\". (Ex 11:9)",
-    "Advertência contra Nínive. Livro da visão de Naum, de Elcós. (Na 1:1)",
-    "Depois passam como o vento e prosseguem; homens carregados de culpa, e que têm por deus a sua própria força\". (Hc 1:11)",
-    "A graça, a misericórdia e a paz da parte de Deus Pai e de Jesus Cristo, seu Filho, estarão conosco em verdade e em amor. (2Jo 1:3)",
-  ];
-  var _randomVerse = "Clique Abaixo para gerar um versiculo!";
+  late var _randomVerse = "Clique Abaixo para gerar um versiculo!";
+  var _reference = "";
 
-  void generateVerse() {
-    var numberRandom = Random().nextInt(_verses.length);
-
+  void generateVerse() async {
+    var ws = WebServiceAPI();
+    Verses verse = await ws.getVersesRandom();
     setState(() {
-      _randomVerse = _verses[numberRandom].toString();
+      _randomVerse = verse.text.toString();
+      _reference =
+          '${verse.book?.name} ${verse.chapter}:${verse.number}\n${verse.book?.version?.toUpperCase()}';
     });
   }
 
@@ -42,8 +36,16 @@ class _HomePageState extends State<HomePage> {
             Text(
               _randomVerse,
               style: const TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w200,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              _reference,
+              style: const TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.center,
             ),
@@ -54,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                 minimumSize: MaterialStateProperty.all(const Size(200, 50)),
               ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
               child: const Text(
-                "Nova Frase",
+                "Novo Versiculo",
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
