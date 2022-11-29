@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _randomVerse = verse.text.toString();
       _reference =
-          '${verse.book?.name} ${verse.chapter}:${verse.number}\n${verse.book?.version?.toUpperCase()}';
+          '${verse.book?.name} - ${verse.book?.abbrev?.pt?.toUpperCase()} ${verse.chapter}:${verse.number}\n${verse.book?.version?.toUpperCase()}';
       loading.value = false;
     });
   }
